@@ -68,11 +68,29 @@ def read_csv_file(filepath: str) -> list[dict]:
         print(f"Ошибка при чтении файла {filepath}: {e}")
         return []
 
+
+def student_perfomance_report(data: list[dict]) -> dict[str, float]:
+    """
+    Формирует отчет об успеваемости студентов.
+
+    Возвращает:
+        dict[str, float]: Словарь вида {имя_студента: средний_балл}.
+    """
+    student_grades = {}
+    for row in data:
+        name = row["student_name"]
+        grade = row["grade"]
+
+        if name not in student_grades:
+            student_grades[name] = [grade]
+        else:
+            student_grades[name].append(grade)
+    return {name: sum(grades) / len(grades) for name, grades in student_grades.items()}
+
+
 def main():
     parser = create_parser()
     args = parser.parse_args()
-
-    
 
 
 if __name__ == "__main__":

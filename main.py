@@ -114,6 +114,16 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
 
+    data = []
+    for file in args.files:
+        data.extend(read_csv_file(file))
+        
+    match args.report:
+        case "student-performance":
+            report = student_perfomance_report(data)
+            print_student_perfomance_report(report)
+        case _:
+            print("Этот функционал пока не готов.")
 
 if __name__ == "__main__":
     main()

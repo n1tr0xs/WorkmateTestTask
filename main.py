@@ -1,4 +1,6 @@
+import datetime
 import argparse
+import csv
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -25,9 +27,52 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def read_csv_file(filepath: str) -> list[dict]:
+    """
+    Читает CSV-файл и возвращает его содержимое в виде списка словарей.
+
+    Каждый словарь содержит следующие ключи:
+        - "student_name" (str): имя студента.
+        - "subject" (str): название предмета.
+        - "teacher_name" (str): имя преподавателя.
+        - "date" (datetime.date): дата выставления оценки (формат 'YYYY-MM-DD').
+        - "grade" (int): числовая оценка.
+    """
+    import csv
+    import datetime
+
+    try:
+        with open(filepath, newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            data = []
+            for row in reader:
+                try:
+                    data.append(
+                        {
+                            "student_name": row["student_name"],
+                            "subject": row["subject"],
+                            "teacher_name": row["teacher_name"],
+                            "date": datetime.datetime.strptime(
+                                row["date"], "%Y-%m-%d"
+                            ).date(),
+                            "grade": int(row["grade"]),
+                        }
+                    )
+                except (ValueError, KeyError) as e:
+                    print(f"Ошибка в строке {row}: {e}")
+            return data
+    except FileNotFoundError:
+        print(f"Файл не найден: {filepath}.")
+        return []
+    except Exception as e:
+        print(f"Ошибка при чтении файла {filepath}: {e}")
+        return []
+
 def main():
     parser = create_parser()
     args = parser.parse_args()
+
+    
 
 
 if __name__ == "__main__":

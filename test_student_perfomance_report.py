@@ -113,28 +113,25 @@ def test_student_perfomance_report_invalid_data_missing_grade():
 
 
 def test_print_student_perfomance_report_normal(capsys):
-    report = {
-        "Семенова Елена": 4.8,
-        "Власова Алина": 5,
-        "Дорофеев Никита": 3.5
-    }
-    
+    report = {"Семенова Елена": 4.8, "Власова Алина": 5, "Дорофеев Никита": 3.5}
+
     print_student_perfomance_report(report)
     captured = capsys.readouterr()
-    
+
     expected_table = tabulate(
         sorted(report.items(), key=lambda item: (-item[1], item[0])),
         headers=["student_name", "grade"],
-        showindex=range(1, len(report)+1),
+        showindex=range(1, len(report) + 1),
         tablefmt="pretty",
-        floatfmt=".1f"
+        floatfmt=".1f",
     )
-    
+
     assert captured.out.strip() == expected_table
+
 
 def test_print_student_perfomance_report_empty(capsys):
     report = {}
     print_student_perfomance_report(report)
     captured = capsys.readouterr()
-    
+
     assert captured.out.strip() == "Нет данных для отчета."

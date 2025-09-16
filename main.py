@@ -88,6 +88,7 @@ def student_perfomance_report(data: list[dict]) -> dict[str, float]:
             student_grades[name].append(grade)
     return {name: sum(grades) / len(grades) for name, grades in student_grades.items()}
 
+
 def print_student_perfomance_report(report: dict[str, float]) -> None:
     """
     Выводит отчет об успеваемости студентов.
@@ -96,9 +97,18 @@ def print_student_perfomance_report(report: dict[str, float]) -> None:
     if not report:
         print("Нет данных для отчета.")
         return
-    
+
     table = sorted(report.items(), key=lambda item: (-item[1], item[0]))
-    print(tabulate(table, headers=["student_name", "grade"], showindex=range(1, len(table)+1), tablefmt="pretty", floatfmt=".1f"))
+    print(
+        tabulate(
+            table,
+            headers=["student_name", "grade"],
+            showindex=range(1, len(table) + 1),
+            tablefmt="pretty",
+            floatfmt=".1f",
+        )
+    )
+
 
 def main():
     parser = create_parser()

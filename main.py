@@ -70,7 +70,7 @@ def read_csv_file(filepath: str) -> list[dict]:
         return []
 
 
-def student_perfomance_report(data: list[dict]) -> dict[str, float]:
+def student_performance_report(data: list[dict]) -> dict[str, float]:
     """
     Формирует отчет об успеваемости студентов.
 
@@ -89,7 +89,7 @@ def student_perfomance_report(data: list[dict]) -> dict[str, float]:
     return {name: sum(grades) / len(grades) for name, grades in student_grades.items()}
 
 
-def print_student_perfomance_report(report: dict[str, float]) -> None:
+def print_student_performance_report(report: dict[str, float]) -> None:
     """
     Выводит отчет об успеваемости студентов.
     Сортирует студентов в порядке успеваемости, в случае одинаковой успеваемости - в алфавитном порядке.
@@ -120,8 +120,8 @@ def main():
         
     match args.report:
         case "student-performance":
-            report = student_perfomance_report(data)
-            print_student_perfomance_report(report)
+            report = student_performance_report(data)
+            print_student_performance_report(report)
         case _:
             print("Этот функционал пока не готов.")
 

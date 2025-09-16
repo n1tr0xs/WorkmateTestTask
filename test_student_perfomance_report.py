@@ -2,10 +2,10 @@ import pytest
 import datetime
 from tabulate import tabulate
 
-from main import student_perfomance_report, print_student_perfomance_report
+from main import student_performance_report, print_student_performance_report
 
 
-def test_student_perfomance_report_basic():
+def test_student_performance_report_basic():
     data = [
         {
             "student_name": "Семенова Елена",
@@ -37,12 +37,12 @@ def test_student_perfomance_report_basic():
         },
     ]
 
-    result = student_perfomance_report(data)
+    result = student_performance_report(data)
     assert result["Семенова Елена"] == pytest.approx((5 + 4) / 2)
     assert result["Власова Алина"] == pytest.approx((5 + 2) / 2)
 
 
-def test_student_perfomance_report_single_student():
+def test_student_performance_report_single_student():
     data = [
         {
             "student_name": "Семенова Елена",
@@ -74,17 +74,17 @@ def test_student_perfomance_report_single_student():
         },
     ]
 
-    result = student_perfomance_report(data)
+    result = student_performance_report(data)
     assert result == {"Семенова Елена": pytest.approx((5 + 3 + 1 + 2) / 4)}
 
 
-def test_student_perfomance_report_empty():
+def test_student_performance_report_empty():
     data = []
-    result = student_perfomance_report(data)
+    result = student_performance_report(data)
     assert result == {}
 
 
-def test_student_perfomance_report_invalid_data_missing_name():
+def test_student_performance_report_invalid_data_missing_name():
     invalid_data = [
         {
             "subject": "Литература",
@@ -95,10 +95,10 @@ def test_student_perfomance_report_invalid_data_missing_name():
     ]
 
     with pytest.raises(KeyError):
-        student_perfomance_report(invalid_data)
+        student_performance_report(invalid_data)
 
 
-def test_student_perfomance_report_invalid_data_missing_grade():
+def test_student_performance_report_invalid_data_missing_grade():
     invalid_data = [
         {
             "student_name": "Семенова Елена",
@@ -109,13 +109,13 @@ def test_student_perfomance_report_invalid_data_missing_grade():
     ]
 
     with pytest.raises(KeyError):
-        student_perfomance_report(invalid_data)
+        student_performance_report(invalid_data)
 
 
-def test_print_student_perfomance_report_normal(capsys):
+def test_print_student_performance_report_normal(capsys):
     report = {"Семенова Елена": 4.8, "Власова Алина": 5, "Дорофеев Никита": 3.5}
 
-    print_student_perfomance_report(report)
+    print_student_performance_report(report)
     captured = capsys.readouterr()
 
     expected_table = tabulate(
@@ -129,9 +129,9 @@ def test_print_student_perfomance_report_normal(capsys):
     assert captured.out.strip() == expected_table
 
 
-def test_print_student_perfomance_report_empty(capsys):
+def test_print_student_performance_report_empty(capsys):
     report = {}
-    print_student_perfomance_report(report)
+    print_student_performance_report(report)
     captured = capsys.readouterr()
 
     assert captured.out.strip() == "Нет данных для отчета."

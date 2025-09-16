@@ -59,3 +59,9 @@ main.py --files example_data\students1.csv example_data\students2.csv --report s
 ```
 ## Скриншот
 <img width="918" height="565" alt="image" src="https://github.com/user-attachments/assets/9eeafe08-8dbd-47db-ae6a-6c0cf20f4e6d" />
+
+# Запуск тестов
+В основной директории проекта (рядом с main.py):
+```
+python -m pytest
+```

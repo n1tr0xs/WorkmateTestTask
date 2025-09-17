@@ -1,4 +1,4 @@
-# Workmate Test Task - Student Perfomance Report
+# Workmate Test Task - Student Performance Report
 Программа формирует отчет об успеваемости студентов на основе CSV-файлов с оценками.
 
 ## Описание
